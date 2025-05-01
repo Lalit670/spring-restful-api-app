@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,8 @@ import com.lalit.vo.ActorVO;
 
 @RestController
 @RequestMapping("/actor-api")
+@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "*")
 public class ActorManagementController {
 
 	@Autowired
@@ -50,10 +53,10 @@ public class ActorManagementController {
 	  try
 	  {
 		  Iterable<ActorVO> allActorsData = actorService.getAllActorsData();
-			return new ResponseEntity(allActorsData,HttpStatus.OK);
+			return new ResponseEntity<Iterable<ActorVO>>(allActorsData,HttpStatus.OK);
 	  }
 	  catch (Exception e) {
-		  return new ResponseEntity("Illegal Response",HttpStatus.INTERNAL_SERVER_ERROR);
+		  return new ResponseEntity<String>("Illegal Response",HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	}
 
